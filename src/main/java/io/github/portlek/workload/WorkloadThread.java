@@ -59,7 +59,7 @@ public final class WorkloadThread implements Runnable {
         while (!this.deque.isEmpty() && System.nanoTime() <= stoptime) {
             final Workload workload = this.deque.poll();
             this.computeWorkload(workload);
-            if (first.equals(workload)) {
+            if (!first.reschedule() && first.equals(workload)) {
                 break;
             }
         }
