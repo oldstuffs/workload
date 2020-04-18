@@ -29,6 +29,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class FixedScheduleWorkload extends ConditionalScheduleWorkload<AtomicInteger> {
 
+    protected FixedScheduleWorkload(final int numberOfExecutions) {
+        this(new AtomicInteger(numberOfExecutions));
+    }
+
     protected FixedScheduleWorkload(final AtomicInteger numberOfExecutions) {
         super(numberOfExecutions);
     }
