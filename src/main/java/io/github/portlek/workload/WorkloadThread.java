@@ -26,6 +26,7 @@
 package io.github.portlek.workload;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.Objects;
 
@@ -42,8 +43,9 @@ public final class WorkloadThread implements Runnable {
         this.maxNanosPerTick = maxNanosPerTick;
     }
 
-    public void addLoad(final Workload workload) {
-        this.deque.add(Objects.requireNonNull(workload));
+    public void addLoad(final Workload... workloads) {
+        Arrays.stream(workloads).forEach(workload ->
+            this.deque.add(Objects.requireNonNull(workload)));
     }
 
     @Override
