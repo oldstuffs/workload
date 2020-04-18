@@ -28,15 +28,15 @@ package io.github.portlek.workload;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Test;
 
-public class TestAll {
+public final class TestAll {
+
+    private static final long TICK = TimeUnit.MILLISECONDS.toNanos(1L);
 
     private final WorkloadDistributor distributor = new WorkloadDistributor();
 
-    private final long minute = TimeUnit.MINUTES.toNanos(1L);
-
     @Test
     void run() {
-        final WorkloadThread thread = this.distributor.createThread(this.minute);
+        final WorkloadThread thread = this.distributor.createThread(TestAll.TICK);
         thread.addLoad(new ConditionalScheduleWorkloadTest(11),
             new ConditionalScheduleWorkloadTest(12));
         thread.run();
