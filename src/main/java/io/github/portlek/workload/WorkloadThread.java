@@ -25,15 +25,15 @@
 
 package io.github.portlek.workload;
 
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
 import java.util.Objects;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 public final class WorkloadThread implements Runnable {
 
-    private final Deque<Workload> deque = new ArrayDeque<>();
+    private final Queue<Workload> deque = new ConcurrentLinkedQueue<>();
 
     private final int workThreadId;
 
