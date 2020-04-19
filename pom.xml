@@ -32,9 +32,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/portlek/configs.git</connection>
-        <developerConnection>scm:git:ssh://github.com/portlek/configs.git</developerConnection>
-        <url>https://github.com/portlek/configs</url>
+        <connection>scm:git:git://github.com/portlek/workload.git</connection>
+        <developerConnection>scm:git:ssh://github.com/portlek/workload.git</developerConnection>
+        <url>https://github.com/portlek/workload</url>
     </scm>
 
     <properties>
