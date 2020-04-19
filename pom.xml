@@ -6,7 +6,7 @@
 
     <groupId>io.github.portlek</groupId>
     <artifactId>workload</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>workload</name>
     <description>A library for huge minecraft opperations.</description>
     <url>https://github.com/portlek/workload</url>
