@@ -33,5 +33,4 @@ dependencies {
     </dependency>
 </dependencies>
 ```
-
 </details>
