@@ -25,20 +25,38 @@
 
 package io.github.portlek.workload;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 public final class TestAll {
 
     private static final long TICK = TimeUnit.MILLISECONDS.toNanos(1L);
 
+    static long count = 0L;
+
     private final WorkloadDistributor distributor = new WorkloadDistributor();
+
+    private final Supplier<List<Workload>> works = () -> {
+        final List<Workload> workloads = new ArrayList<>();
+        for (int index = 0; index < 1000; index++) {
+            workloads.add(new ConditionalScheduleWorkloadTest(11));
+        }
+        return workloads;
+    };
+
+    @AfterAll
+    static void after() {
+        System.out.println(TestAll.count);
+    }
 
     @Test
     void run() {
         final WorkloadThread thread = this.distributor.createThread(TestAll.TICK);
-        thread.addLoad(new ConditionalScheduleWorkloadTest(11),
-            new ConditionalScheduleWorkloadTest(12));
+        thread.addLoad(this.works.get());
         thread.run();
     }
 

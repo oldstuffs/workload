@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 
 public abstract class ConditionalScheduleWorkload<T> implements Workload, Predicate<T> {
 
-    private final T element;
+    protected final T element;
 
     protected ConditionalScheduleWorkload(final T element) {
         this.element = Objects.requireNonNull(element);

@@ -33,7 +33,7 @@ final class ConditionalScheduleWorkloadTest extends ConditionalScheduleWorkload<
 
     @Override
     public void compute() {
-        System.out.println("Test");
+        TestAll.count++;
     }
 
     @Override

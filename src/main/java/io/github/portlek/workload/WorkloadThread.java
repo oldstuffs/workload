@@ -29,6 +29,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public final class WorkloadThread implements Runnable {
 
@@ -43,9 +44,13 @@ public final class WorkloadThread implements Runnable {
         this.maxNanosPerTick = maxNanosPerTick;
     }
 
-    public void addLoad(final Workload... workloads) {
-        Arrays.stream(workloads).forEach(workload ->
+    public void addLoad(final Iterable<Workload> workloads) {
+        workloads.forEach(workload ->
             this.deque.add(Objects.requireNonNull(workload)));
+    }
+
+    public void addLoad(final Workload... workloads) {
+        this.addLoad(Arrays.stream(workloads).collect(Collectors.toList()));
     }
 
     @Override
@@ -56,8 +61,8 @@ public final class WorkloadThread implements Runnable {
             return;
         }
         this.computeWorkload(first);
-        while (!this.deque.isEmpty() && System.nanoTime() <= stoptime) {
-            final Workload workload = this.deque.poll();
+        Workload workload;
+        while ((workload = this.deque.poll()) != null && System.nanoTime() <= stoptime) {
             this.computeWorkload(workload);
             if (!first.reschedule() && first.equals(workload)) {
                 break;
