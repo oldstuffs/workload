@@ -1,5 +1,7 @@
 # Workload
 Split heavy tasks.
+The library is coming from that guide;
+https://www.spigotmc.org/threads/409003/
 
 [![idea](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 [![rultor](https://www.rultor.com/b/yegor256/rultor)](https://www.rultor.com/p/portlek/workload)
