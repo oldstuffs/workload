@@ -1,7 +1,5 @@
-# Workload
-Split heavy tasks.
-
 The library is coming from that guide;
+
 https://www.spigotmc.org/threads/409003/
 
 [![idea](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
@@ -9,32 +7,13 @@ https://www.spigotmc.org/threads/409003/
 
 [![Build Status](https://travis-ci.com/portlek/workload.svg?branch=master)](https://travis-ci.com/portlek/workload)
 ![maven-central](https://img.shields.io/maven-central/v/io.github.portlek/workload)
-## Setup
-
-<details>
-<summary>Gradle</summary>
-
+## How to use
 ```gradle
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation("io.github.portlek:workload:${version}")
-}
-```
-</details>
-
-<details>
-<summary>Maven</summary>
-
+implementation("io.github.portlek:workload:${version}")
 ```xml
-<dependencies>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>workload</artifactId>
-      <version>${version}</version>
-    </dependency>
-</dependencies>
+<dependency>
+  <groupId>io.github.portlek</groupId>
+  <artifactId>workload</artifactId>
+  <version>${version}</version>
+</dependency>
 ```
-</details>
