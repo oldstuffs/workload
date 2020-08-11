@@ -10,6 +10,7 @@ https://www.spigotmc.org/threads/409003/
 ## How to use
 ```gradle
 implementation("io.github.portlek:workload:${version}")
+```
 ```xml
 <dependency>
   <groupId>io.github.portlek</groupId>
