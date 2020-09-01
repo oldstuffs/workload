@@ -26,9 +26,9 @@
 package io.github.portlek.workload;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import org.jetbrains.annotations.NotNull;
 
 public final class WorkloadThread implements Runnable {
 
@@ -43,9 +43,8 @@ public final class WorkloadThread implements Runnable {
         this.maxNanosPerTick = maxNanosPerTick;
     }
 
-    public void addLoad(final Iterable<Workload> workloads) {
-        workloads.forEach(workload ->
-            this.deque.add(Objects.requireNonNull(workload)));
+    public void addLoad(@NotNull final Iterable<Workload> workloads) {
+        workloads.forEach(this.deque::add);
     }
 
     public void addLoad(final Workload... workloads) {
@@ -69,8 +68,8 @@ public final class WorkloadThread implements Runnable {
         }
     }
 
-    private void computeWorkload(final Workload workload) {
-        if (Objects.requireNonNull(workload).shouldExecute()) {
+    private void computeWorkload(@NotNull final Workload workload) {
+        if (workload.shouldExecute()) {
             workload.compute();
         }
         if (workload.reschedule()) {
