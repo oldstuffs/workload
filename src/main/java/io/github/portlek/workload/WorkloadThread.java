@@ -29,7 +29,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
 
 public final class WorkloadThread implements Runnable {
 
@@ -50,7 +49,7 @@ public final class WorkloadThread implements Runnable {
     }
 
     public void addLoad(final Workload... workloads) {
-        this.addLoad(Arrays.stream(workloads).collect(Collectors.toList()));
+        this.addLoad(Arrays.asList(workloads));
     }
 
     @Override
