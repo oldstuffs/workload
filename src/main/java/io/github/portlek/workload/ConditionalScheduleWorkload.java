@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * an abstract implementation for {@link Workload} and,
- * reschedules if the {@link this#test(Object)} returns {@code true}.
+ * reschedules if {@link ConditionalScheduleWorkload#test(Object)} returns {@code true}.
  *
  * @param <T> the type of the element.
  */
