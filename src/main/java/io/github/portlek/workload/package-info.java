@@ -22,23 +22,7 @@
  * SOFTWARE.
  *
  */
-
+/**
+ * the package that contains main classes.
+ */
 package io.github.portlek.workload;
-
-final class ConditionalScheduleWorkloadTest extends ConditionalScheduleWorkload<Integer> {
-
-    ConditionalScheduleWorkloadTest(final Integer element) {
-        super(element);
-    }
-
-    @Override
-    public void compute() {
-        TestAll.count++;
-    }
-
-    @Override
-    public boolean test(final Integer integer) {
-        return integer > 10;
-    }
-
-}

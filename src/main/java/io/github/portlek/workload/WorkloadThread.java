@@ -25,56 +25,70 @@
 
 package io.github.portlek.workload;
 
-import java.util.Arrays;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * a class that stores and computes {@link Workload} instances.
+ */
 public final class WorkloadThread implements Runnable {
 
-    private final Queue<Workload> deque = new ConcurrentLinkedQueue<>();
+  /**
+   * the work deque.
+   */
+  private final Queue<Workload> deque = new ConcurrentLinkedQueue<>();
 
-    private final int workThreadId;
+  /**
+   * the work thread id.
+   */
+  private final long workThreadId;
 
-    private final long maxNanosPerTick;
+  /**
+   * the maximum nano per tick.
+   */
+  private final long maxNanosPerTick;
 
-    public WorkloadThread(final int workThreadId, final long maxNanosPerTick) {
-        this.workThreadId = workThreadId;
-        this.maxNanosPerTick = maxNanosPerTick;
+  /**
+   * ctor.
+   *
+   * @param workThreadId the work thread id.
+   * @param maxNanosPerTick the maximum nano per tick.
+   */
+  WorkloadThread(final long workThreadId, final long maxNanosPerTick) {
+    this.workThreadId = workThreadId;
+    this.maxNanosPerTick = maxNanosPerTick;
+  }
+
+  @Override
+  public void run() {
+    final long stopTime = System.nanoTime() + this.maxNanosPerTick;
+    final Workload first = this.deque.poll();
+    if (first == null) {
+      return;
     }
-
-    public void addLoad(@NotNull final Iterable<Workload> workloads) {
-        workloads.forEach(this.deque::add);
+    this.computeWorkload(first);
+    Workload workload;
+    while ((workload = this.deque.poll()) != null && System.nanoTime() <= stopTime) {
+      this.computeWorkload(workload);
+      if (!first.reschedule() && first.equals(workload)) {
+        break;
+      }
     }
+  }
 
-    public void addLoad(final Workload... workloads) {
-        this.addLoad(Arrays.asList(workloads));
+  /**
+   * runs {@link Workload#compute()} if {@link Workload#shouldExecute()} is {@code true}.
+   * also reschedules if {@link Workload#reschedule()} is {@code true}.
+   *
+   * @param workload the workload to compute.
+   */
+  private void computeWorkload(@NotNull final Workload workload) {
+    if (workload.shouldExecute()) {
+      workload.compute();
     }
-
-    @Override
-    public void run() {
-        final long stoptime = System.nanoTime() + this.maxNanosPerTick;
-        final Workload first = this.deque.poll();
-        if (first == null) {
-            return;
-        }
-        this.computeWorkload(first);
-        Workload workload;
-        while ((workload = this.deque.poll()) != null && System.nanoTime() <= stoptime) {
-            this.computeWorkload(workload);
-            if (!first.reschedule() && first.equals(workload)) {
-                break;
-            }
-        }
+    if (workload.reschedule()) {
+      this.deque.add(workload);
     }
-
-    private void computeWorkload(@NotNull final Workload workload) {
-        if (workload.shouldExecute()) {
-            workload.compute();
-        }
-        if (workload.reschedule()) {
-            this.addLoad(workload);
-        }
-    }
-
+  }
 }
