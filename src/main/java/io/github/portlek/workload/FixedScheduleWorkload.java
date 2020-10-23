@@ -25,21 +25,35 @@
 
 package io.github.portlek.workload;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class FixedScheduleWorkload extends ConditionalScheduleWorkload<AtomicInteger> {
+/**
+ * an abstract implementation for {@link ConditionalScheduleWorkload} and,
+ * computes the workload the given number times.
+ */
+public abstract class FixedScheduleWorkload extends ConditionalScheduleWorkload<AtomicLong> {
 
-    protected FixedScheduleWorkload(final int numberOfExecutions) {
-        this(new AtomicInteger(numberOfExecutions));
-    }
+  /**
+   * ctor.
+   *
+   * @param numberOfExecutions the number of executions.
+   */
+  protected FixedScheduleWorkload(@NotNull final AtomicLong numberOfExecutions) {
+    super(numberOfExecutions);
+  }
 
-    protected FixedScheduleWorkload(final AtomicInteger numberOfExecutions) {
-        super(numberOfExecutions);
-    }
+  /**
+   * ctor.
+   *
+   * @param numberOfExecutions the number of executions.
+   */
+  protected FixedScheduleWorkload(final long numberOfExecutions) {
+    this(new AtomicLong(numberOfExecutions));
+  }
 
-    @Override
-    public final boolean test(final AtomicInteger atomicInteger) {
-        return atomicInteger.decrementAndGet() > 0;
-    }
-
+  @Override
+  public final boolean test(final AtomicLong atomicInteger) {
+    return atomicInteger.decrementAndGet() > 0L;
+  }
 }

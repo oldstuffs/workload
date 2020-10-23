@@ -25,20 +25,44 @@
 
 package io.github.portlek.workload;
 
-import java.util.Objects;
 import java.util.function.Predicate;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * an abstract implementation for {@link Workload} and,
+ * reschedules if {@link ConditionalScheduleWorkload#test(Object)} returns {@code true}.
+ *
+ * @param <T> the type of the element.
+ */
 public abstract class ConditionalScheduleWorkload<T> implements Workload, Predicate<T> {
 
-    protected final T element;
+  /**
+   * the element to test {@link Workload#shouldExecute()}.
+   */
+  @NotNull
+  private final T element;
 
-    protected ConditionalScheduleWorkload(final T element) {
-        this.element = Objects.requireNonNull(element);
-    }
+  /**
+   * ctor.
+   *
+   * @param element the element.
+   */
+  protected ConditionalScheduleWorkload(@NotNull final T element) {
+    this.element = element;
+  }
 
-    @Override
-    public final boolean reschedule() {
-        return this.test(this.element);
-    }
+  @Override
+  public final boolean reschedule() {
+    return this.test(this.element);
+  }
 
+  /**
+   * obtains the given element.
+   *
+   * @return the given element.
+   */
+  @NotNull
+  protected final T getElement() {
+    return this.element;
+  }
 }

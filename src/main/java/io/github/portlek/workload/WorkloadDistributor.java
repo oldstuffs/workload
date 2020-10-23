@@ -27,22 +27,39 @@ package io.github.portlek.workload;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * a class that stores and distributes {@link WorkloadThread} instances.
+ */
 public final class WorkloadDistributor implements Runnable {
 
-    private final Map<Integer, WorkloadThread> map = new HashMap<>();
+  /**
+   * the work load thread map.
+   */
+  private final Map<Long, WorkloadThread> map = new HashMap<>();
 
-    private int index = 0;
+  /**
+   * the next work load id.
+   */
+  private long nextId = 0L;
 
-    public WorkloadThread createThread(final long nanoPerTick) {
-        final WorkloadThread thread = new WorkloadThread(++this.index, nanoPerTick);
-        this.map.put(this.index, thread);
-        return thread;
-    }
+  /**
+   * creates a new {@link WorkloadThread} instance.
+   *
+   * @param nanoPerTick the nano per tick.
+   *
+   * @return a new {@link WorkloadThread} instance.
+   */
+  @NotNull
+  public WorkloadThread createThread(final long nanoPerTick) {
+    final WorkloadThread thread = new WorkloadThread(++this.nextId, nanoPerTick);
+    this.map.put(this.nextId, thread);
+    return thread;
+  }
 
-    @Override
-    public void run() {
-        this.map.values().forEach(WorkloadThread::run);
-    }
-
+  @Override
+  public void run() {
+    this.map.values().forEach(WorkloadThread::run);
+  }
 }
