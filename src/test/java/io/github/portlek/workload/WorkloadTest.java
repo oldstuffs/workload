@@ -26,6 +26,7 @@
 package io.github.portlek.workload;
 
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import org.jetbrains.annotations.NotNull;
@@ -68,7 +69,7 @@ final class WorkloadTest {
       @NotNull
       @Override
       public String getName() {
-        return "test";
+        return UUID.randomUUID().toString();
       }
 
       @Override

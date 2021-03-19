@@ -43,9 +43,15 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class TypedDistributedTask<T> implements Runnable {
 
+  /**
+   * the action.
+   */
   @Nullable
   private final Consumer<T> action;
 
+  /**
+   * the escape condition.
+   */
   @Nullable
   private final Predicate<T> escapeCondition;
 
