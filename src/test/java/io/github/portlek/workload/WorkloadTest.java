@@ -53,8 +53,8 @@ final class WorkloadTest {
    */
   public static void main(final String[] args) throws InterruptedException {
     final WorkloadTest test = new WorkloadTest();
-    Executors.newScheduledThreadPool(2).scheduleAtFixedRate(test::exec, 50L, 50L, TimeUnit.MICROSECONDS);
-    Executors.newScheduledThreadPool(2).scheduleAtFixedRate(test.playerTask, 50L, 50L, TimeUnit.MICROSECONDS);
+    Executors.newScheduledThreadPool(1).scheduleAtFixedRate(test::exec, 0L, 5L, TimeUnit.MICROSECONDS);
+    Executors.newScheduledThreadPool(1).scheduleAtFixedRate(test.playerTask, 50L, 50L, TimeUnit.MICROSECONDS);
     while (true) {
       Thread.sleep(5L);
     }
