@@ -1,11 +1,10 @@
 version: 2
 updates:
-- package-ecosystem: maven
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "10:00"
-    timezone: Turkey
-  open-pull-requests-limit: 99
-  labels:
-  - release/patch
+  - package-ecosystem: maven
+    labels:
+      - "automerge"
+      - "release/patch"
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 99

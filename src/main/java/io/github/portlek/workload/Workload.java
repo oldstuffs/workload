@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Hasan Demirtaş
+ * Copyright (c) 2021 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,16 @@ public interface Workload {
   void compute();
 
   /**
+   * computes then checks {@link #reschedule()}.
+   *
+   * @return {@code true} if re-scheduling.
+   */
+  default boolean computeThenCheckForScheduling() {
+    this.compute();
+    return !this.reschedule();
+  }
+
+  /**
    * checks if the work is reschedulable.
    *
    * @return {@code true} if the work should be re schedule.
@@ -51,15 +61,5 @@ public interface Workload {
    */
   default boolean shouldExecute() {
     return true;
-  }
-
-  /**
-   * computes then checks {@link #reschedule()}.
-   *
-   * @return {@code true} if re-scheduling.
-   */
-  default boolean computeThenCheckForScheduling() {
-    this.compute();
-    return !this.reschedule();
   }
 }

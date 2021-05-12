@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 Hasan Demirtaş
+ * Copyright (c) 2021 Hasan Demirtaş
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,14 +40,14 @@ public final class WorkloadThread implements Runnable {
   private final Queue<Workload> deque = new ConcurrentLinkedQueue<>();
 
   /**
-   * the work thread id.
-   */
-  private final long workThreadId;
-
-  /**
    * the maximum nano per tick.
    */
   private final long maxNanosPerTick;
+
+  /**
+   * the work thread id.
+   */
+  private final long workThreadId;
 
   /**
    * ctor.
@@ -62,8 +62,8 @@ public final class WorkloadThread implements Runnable {
 
   @Override
   public void run() {
-    final long stopTime = System.nanoTime() + this.maxNanosPerTick;
-    final Workload first = this.deque.poll();
+    final var stopTime = System.nanoTime() + this.maxNanosPerTick;
+    final var first = this.deque.poll();
     if (first == null) {
       return;
     }
