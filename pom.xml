@@ -42,4 +42,7 @@
     <connection>scm:git:git://github.com/portlek/workload.git</connection>
     <developerConnection>scm:git:ssh://github.com/portlek/workload.git</developerConnection>
   </scm>
+  <properties>
+    <java.version>11</java.version>
+  </properties>
 </project>

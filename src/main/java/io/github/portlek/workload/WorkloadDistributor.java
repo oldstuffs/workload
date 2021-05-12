@@ -53,7 +53,7 @@ public final class WorkloadDistributor implements Runnable {
    */
   @NotNull
   public WorkloadThread createThread(final long nanoPerTick) {
-    final WorkloadThread thread = new WorkloadThread(++this.nextId, nanoPerTick);
+    final var thread = new WorkloadThread(++this.nextId, nanoPerTick);
     this.map.put(this.nextId, thread);
     return thread;
   }

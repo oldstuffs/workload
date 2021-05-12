@@ -26,6 +26,9 @@
 package io.github.portlek.workload;
 
 import java.util.function.Predicate;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -34,35 +37,18 @@ import org.jetbrains.annotations.NotNull;
  *
  * @param <T> the type of the element.
  */
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class ConditionalScheduleWorkload<T> implements Workload, Predicate<T> {
 
   /**
    * the element to test {@link Workload#shouldExecute()}.
    */
   @NotNull
+  @Getter
   private final T element;
-
-  /**
-   * ctor.
-   *
-   * @param element the element.
-   */
-  protected ConditionalScheduleWorkload(@NotNull final T element) {
-    this.element = element;
-  }
 
   @Override
   public final boolean reschedule() {
     return this.test(this.element);
-  }
-
-  /**
-   * obtains the given element.
-   *
-   * @return the given element.
-   */
-  @NotNull
-  protected final T getElement() {
-    return this.element;
   }
 }

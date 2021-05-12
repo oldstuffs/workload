@@ -50,15 +50,15 @@ public final class TypedDistributedTask<T> implements Runnable {
   private final Consumer<T> action;
 
   /**
+   * the distribution size.
+   */
+  private final int distributionSize;
+
+  /**
    * the escape condition.
    */
   @Nullable
   private final Predicate<T> escapeCondition;
-
-  /**
-   * the distribution size.
-   */
-  private final int distributionSize;
 
   /**
    * the world-load matrix.
@@ -96,13 +96,13 @@ public final class TypedDistributedTask<T> implements Runnable {
    * @param workload the workload to add.
    */
   public void add(@NotNull final Supplier<T> workload) {
-    List<Supplier<T>> smallestList = this.suppliedValueMatrix.get(0);
-    for (int index = 0; index < this.distributionSize; index++) {
+    var smallestList = this.suppliedValueMatrix.get(0);
+    for (var index = 0; index < this.distributionSize; index++) {
       if (smallestList.size() == 0) {
         break;
       }
-      final List<Supplier<T>> next = this.suppliedValueMatrix.get(index);
-      final int size = next.size();
+      final var next = this.suppliedValueMatrix.get(index);
+      final var size = next.size();
       if (size < smallestList.size()) {
         smallestList = next;
       }
@@ -124,7 +124,7 @@ public final class TypedDistributedTask<T> implements Runnable {
    * @return {@code true} if {@link #escapeCondition} is null or the test succeeded.
    */
   private boolean executeThenCheck(@NotNull final Supplier<T> valueSupplier) {
-    final T value = valueSupplier.get();
+    final var value = valueSupplier.get();
     if (this.action != null) {
       this.action.accept(value);
     }
